@@ -24,6 +24,8 @@ public class Schedule implements Serializable{
 	
 	private String mensagem;
 	
+	private String senha;
+	
 	private int hora;
 	
 	private int duracao;
@@ -60,6 +62,14 @@ public class Schedule implements Serializable{
 
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public int getHora() {
