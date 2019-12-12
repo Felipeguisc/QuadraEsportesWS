@@ -1,6 +1,7 @@
 package com.quadraesporte.apirest.models;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Schedule implements Serializable{
 	
 	private String senha;
 	
-	private int hora;
+	private Timestamp hora;
 	
 	private int duracao;
 	
@@ -72,11 +73,11 @@ public class Schedule implements Serializable{
 		this.senha = senha;
 	}
 
-	public int getHora() {
+	public Timestamp getHora() {
 		return hora;
 	}
 
-	public void setHora(int hora) {
+	public void setHora(Timestamp hora) {
 		this.hora = hora;
 	}
 

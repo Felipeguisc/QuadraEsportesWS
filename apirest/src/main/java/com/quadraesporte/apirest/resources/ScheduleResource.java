@@ -31,31 +31,59 @@ public class ScheduleResource {
 	@GetMapping("/schedules")
 	@ApiOperation(value="Retorna uma lista com os agendamendos da Quadra de Esportes")
 	public List<Schedule> listaSchedules(){
-		return scheduleRepository.findAll();
+		List<Schedule> lista = scheduleRepository.findAll();
+		for (Schedule schedule : lista) {
+			schedule.setSenha("");
+		}
+		return lista;
 	}
 	
 	@GetMapping("/schedule/{id}")
 	@ApiOperation(value="Retorna um agendamento espeífico da Quadra de Esportes")
 	public Schedule listaScheduleUnico(@PathVariable(value="id") long id){
-		return scheduleRepository.findById(id);
+		Schedule schedule = scheduleRepository.findById(id);
+		schedule.setSenha("");
+		return schedule;
 	}
 	
 	@PostMapping("/schedule")
 	@ApiOperation(value="Salva um agendamento da Quadra de Esportes")
 	public Schedule salvaSchedule(@RequestBody Schedule schedule) {
+		schedule.setId(0);
 		return scheduleRepository.save(schedule);
 	}
 	
 	@DeleteMapping("/schedule")
-	@ApiOperation(value="Deleta um agendamento na Quadra de Esportes")
-	public void deletaSchedule(@RequestBody Schedule schedule) {
-		scheduleRepository.delete(schedule);
+	@ApiOperation(value="Deleta um agendamento na Quadra de Esportes, precisa apenas dos campos Id e Senha do Schedule.")
+	public boolean deletaSchedule(@RequestBody Schedule schedule) {
+		Schedule schedule_banco = scheduleRepository.findById(schedule.getId());
+		if(schedule_banco.getSenha().equals(schedule.getSenha())) {
+			scheduleRepository.delete(schedule);
+			return true;
+		}
+		return false;
+	}
+	
+	@DeleteMapping("/schedule/{id}/{senha}")
+	@ApiOperation(value="Deleta um agendamento na Quadra de Esportes usando um id e a senha.")
+	public boolean deletaScheduleId(@PathVariable(value="id") long id, @PathVariable(value="senha") String senha) {
+		Schedule schedule = scheduleRepository.findById(id);
+		if(schedule.getSenha().equals(senha)) {
+			scheduleRepository.delete(schedule);
+			return true;
+		}
+		return false;
 	}
 	
 	@PutMapping("/schedule")
 	@ApiOperation(value="Atualiza um agendamento na Quadra de Esportes")
 	public Schedule atualizaSchedule(@RequestBody Schedule schedule) {
-		return scheduleRepository.save(schedule);
+		Schedule schedule_banco = scheduleRepository.findById(schedule.getId());
+		if(schedule_banco.getSenha().equals(schedule.getSenha())) {
+			return scheduleRepository.save(schedule);
+		}
+		Schedule vazio = null;
+		return vazio;
 	}
 
 }
