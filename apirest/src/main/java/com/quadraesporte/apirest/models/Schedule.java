@@ -10,27 +10,27 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="TB_SCHEDULE")
-public class Schedule implements Serializable{
-	
+@Table(name = "TB_SCHEDULE")
+public class Schedule implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
+
 	private String nome;
-	
+
 	private String esporte;
-	
+
 	private String mensagem;
-	
+
 	private String senha;
-	
-	private Timestamp hora;
-	
-	private int duracao;
-	
+
+	private Timestamp hora_inicio;
+
+	private Timestamp hora_fim;
+
 	private boolean aberto;
 
 	public long getId() {
@@ -64,7 +64,7 @@ public class Schedule implements Serializable{
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
 	}
-	
+
 	public String getSenha() {
 		return senha;
 	}
@@ -73,20 +73,20 @@ public class Schedule implements Serializable{
 		this.senha = senha;
 	}
 
-	public Timestamp getHora() {
-		return hora;
+	public Timestamp getHora_inicio() {
+		return hora_inicio;
 	}
 
-	public void setHora(Timestamp hora) {
-		this.hora = hora;
+	public void setHora_inicio(Timestamp hora_inicio) {
+		this.hora_inicio = hora_inicio;
 	}
 
-	public int getDuracao() {
-		return duracao;
+	public Timestamp getHora_fim() {
+		return hora_fim;
 	}
 
-	public void setDuracao(int tempo_duracao) {
-		this.duracao = tempo_duracao;
+	public void setHora_fim(Timestamp hora_fim) {
+		this.hora_fim = hora_fim;
 	}
 
 	public boolean isAberto() {
